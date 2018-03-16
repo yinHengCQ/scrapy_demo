@@ -19,7 +19,7 @@ NEWSPIDER_MODULE = 'scrapy_demo.spiders'
 #USER_AGENT = 'scrapy_demo (+http://www.yourdomain.com)'
 
 # Obey robots.txt rules
-ROBOTSTXT_OBEY = True
+ROBOTSTXT_OBEY = False
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
 #CONCURRENT_REQUESTS = 32
@@ -56,6 +56,35 @@ ROBOTSTXT_OBEY = True
 #    'scrapy_demo.middlewares.ScrapyDemoDownloaderMiddleware': 543,
 #}
 
+
+
+
+SPLASH_URL='http://192.168.1.181:8050'
+
+DOWNLOADER_MIDDLEWARES={
+    'scrapy_splash.SplashCookiesMiddleware':723,
+    'scrapy_splash.SplashMiddleware':725,
+    'scrapy.downloadermiddlewares.httpcompression.HttpCompressionMiddleware':810,
+}
+
+SPIDER_MIDDLEWARES={
+    'scrapy_splash.SplashDeduplicateArgsMiddleware':100,
+}
+
+DUPEFILTER_CLASS='scrapy_splash.SplashAwareDupeFilter'
+
+HTTPCACHE_STORAGE='scrapy_splash.SplashAwareFSCacheStorage'
+
+import random
+USER_AGENT_LIST = [
+    "Mozilla/5.0 (iPhone; U; CPU iPhone OS 4_3_3 like Mac OS X; en-us) AppleWebKit/533.17.9 (KHTML, like Gecko) Version/5.0.2 Mobile/8J2 Safari/6533.18.5",
+    "Mozilla/5.0 (Linux; U; Android 2.3.7; en-us; Nexus One Build/FRF91) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1",
+    "Mozilla/5.0 (Linux; U; Android 2.2.1; zh-cn; HTC_Wildfire_A3333 Build/FRG83D) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1",
+    "Mozilla/5.0 (iPhone; CPU iPhone OS 5_0 like Mac OS X) AppleWebKit/534.46 (KHTML, like Gecko) Version/5.1 Mobile/9A5313e Safari/7534.48.3",
+]
+USER_AGENT = random.choice(USER_AGENT_LIST)
+
+
 # Enable or disable extensions
 # See https://doc.scrapy.org/en/latest/topics/extensions.html
 #EXTENSIONS = {
@@ -66,7 +95,7 @@ ROBOTSTXT_OBEY = True
 # See https://doc.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
    # 'scrapy_demo.pipelines.ScrapyDemoPipeline': 300,
-    'scrapy_demo.pipelines.NewsPipeline':100,
+    'scrapy_demo.pipelines.HotelPipeline':100,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)

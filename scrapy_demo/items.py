@@ -8,11 +8,10 @@
 import scrapy
 
 
-class ScrapyDemoItem(scrapy.Item):
-    # define the fields for your item here like:
-    # name = scrapy.Field()
-    pass
 
-class NewsItem(scrapy.Item):
-    title=scrapy.Field()
-    url=scrapy.Field()
+class HotelItem(scrapy.Item):
+    hotel_id=scrapy.Field()
+    hotel_name=scrapy.Field()
+    hotel_address=scrapy.Field()
+    sql_roomtypeList=scrapy.Field()
+    sql_roomtypePriceList=scrapy.Field()
